@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新闻详情</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/news.css">
+</head>
+<body>
+ <div class="topnav">
+    <a href="index.html">Aichat</a>
+    <a href="donation.html">关于</a>
+    <a href="linksearch.html">网盘</a>
+    <a href="news.html">新闻</a>
+    <a href="others.html">其它</a>
+  </div>
+  <div class="news-detail-page">
+    <div id="news-detail-container"></div>
+  </div>
+
+  <script>
+    async function fetchNewsDetail(id) {
+      try {
+        const response = await fetch(`/api/newsDetail?id=${id}`);
+        const data = await response.json();
+        
+        // Check if it's an error response
+        if (data.code === 404 || data.error) {
+          console.error('Error fetching news detail:', data);
+          return { error: true, message: data.message || ' ' };
+        }
+        
+        // The API might return data in different structures
+        return data.data || data.item || data;
+      } catch (error) {
+        console.error('Error:', error);
+        return { error: true, message: '网络错误，请稍后重试' };
+      }
+    }
+
+    async function loadNewsDetail() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+      const title = urlParams.get('title');
+      const url = urlParams.get('url');
+      
+      if (!id) {
+        document.getElementById('news-detail-container').innerHTML = '<p>缺少新闻ID参数。</p>';
+        return;
+      }
+
+      const container = document.getElementById('news-detail-container');
+      container.innerHTML = '<p>正在加载新闻详情...</p>';
+      
+      const newsDetail = await fetchNewsDetail(id);
+
+      if (newsDetail.error) {
+        // If API fails, show a fallback with the original URL
+        container.innerHTML = `
+          <div class="news-detail-content">
+            <h1>${title || '新闻详情'}</h1>
+            <div class="news-meta">
+            </div>
+            <div class="news-content">
+              <p>${newsDetail.message}</p>
+              ${url ? `<p><a href="${url}" target="_blank" class="external-link">点击查看原文</a></p>` : ''}
+            </div>
+            <div class="news-actions">
+              <a href="news.html" class="back-btn">返回新闻列表</a>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="news-detail-content">
+          <h1>${newsDetail.title || title || '无标题'}</h1>
+          <div class="news-meta">
+            <span class="news-date">${newsDetail.publish_time || newsDetail.date || ''}</span>
+            <span class="news-source">${newsDetail.source || ''}</span>
+          </div>
+          <div class="news-content">
+            ${newsDetail.content || newsDetail.description || '暂无内容'}
+          </div>
+          <div class="news-actions">
+            <a href="news.html" class="back-btn">返回新闻列表</a>
+          </div>
+        </div>
+      `;
+    }
+
+    loadNewsDetail();
+  </script>
+  <script src="js/password.js"></script>
+      <script src="js/auth.js"></script>
+</body>
+</html>

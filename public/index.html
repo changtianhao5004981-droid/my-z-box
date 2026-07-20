@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChatBot</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Link to the base CSS file for consistent styling -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Link to the separate CSS file -->
+  <link rel="stylesheet" href="css/aichat.css" />
+</head>
+<body>
+  
+ <div class="topnav">
+    <a href="index.html">Aichat</a>
+    <a href="donation.html">关于</a>
+    <a href="linksearch.html">网盘</a>
+    <a href="news.html">新闻</a>
+    <a href="others.html">其它</a>
+  </div>
+
+  <!-- Wrapper with unique class to scope CSS -->
+  <div class="aichat-wrapper">
+    <h2>Free ChatBot</h2>
+
+    <div class="chat-wrapper">
+      <div id="response" class="chat-messages"></div>
+
+      <select id="category" aria-label="Select AI Model">
+          <option value="openai/gpt-oss-20b">
+    OpenAI: gpt-oss-20b
+  </option>
+
+  <option value="google/gemini-2.5-flash">
+    Gemini 2.5 Flash (极速秒回-推荐)（国外）
+  </option>
+
+  <option value="meta-llama/llama-3.3-70b-instruct">
+    Llama 3.3 70B (快速且聪明)（国外）
+  </option>
+
+
+
+  <option value="deepseek/deepseek-r1">
+    DeepSeek R1 (深度思考-慢)
+  </option>
+
+  <option value="deepseek/deepseek-r1:0528">
+    DeepSeek R1 0528
+  </option>
+
+</select>
+
+        <input
+          type="text"
+          class="form-control"
+          id="userInput"
+          placeholder="Enter your question"
+          aria-label="User input"
+        />
+
+        <button class="btn btn-success" id="sendBtn">Ask!</button>
+        <button class="btn btn-secondary" id="clearBtn">Clear Chat</button>
+      </div>
+    </div>
+  </div>
+
+ <script src="js/aichat.js"></script>
+
+ <!-- 2. 核心：必须加上这行，右下角可拖拽的悬浮登录按钮才会出来！ -->
+  <script src="js/auth.js"></script>
+</body>
+</html>

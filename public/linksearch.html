@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>链接搜索</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/linksearch.css">
+</head>
+<body>
+ <div class="topnav">
+    <a href="index.html">Aichat</a>
+    <a href="donation.html">关于</a>
+    <a href="linksearch.html">网盘</a>
+    <a href="news.html">新闻</a>
+    <a href="others.html">其它</a>
+  </div>
+
+  <div class="linksearch-page">
+    <h1>链接搜索</h1>
+    <p class="search-description">搜索短剧、视频等资源链接</p>
+    <p><strong>免责声明：</strong>本站所有资源均为网络公开搜集整理，仅供学习交流使用。资源版权归原作者所有，请勿用于商业用途。如发现侵权内容，请联系我们删除。</p>
+  <p>联系方式：<a>2013557104@qq.com</a></p>
+
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="请输入关键词，如：爱情、喜剧、动作..." />
+      <button id="searchBtn">搜索</button>
+    </div>
+
+    <div id="loading" class="loading" style="display: none;">
+      <p>正在搜索中...</p>
+    </div>
+
+    <div id="results" class="results-container"></div>
+
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <script src="../js/linksearch.js"></script>
+     <script src="js/auth.js"></script>
+</body>
+</html> 
